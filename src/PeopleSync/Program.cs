@@ -18,7 +18,7 @@ public static class Program
             Description = "Absolute or relative path to the System A people file",
             Required = true
         };
-        var apiOption = new Option<Uri>("--api")
+        var apiOption = new Option<string>("--api")
         {
             Description = "System B batch endpoint URL, for example http://localhost:5000/people/batch",
             Required = true
@@ -43,9 +43,14 @@ public static class Program
         command.SetAction(async parseResult =>
         {
             var input = parseResult.GetRequiredValue(inputOption);
-            var api = parseResult.GetRequiredValue(apiOption);
+            var apiText = parseResult.GetRequiredValue(apiOption);
             var checkpoint = parseResult.GetValue(checkpointOption) ?? new FileInfo("checkpoint.log");
             var errors = parseResult.GetValue(errorsOption) ?? new FileInfo("errors.log");
+            if (!Uri.TryCreate(apiText, UriKind.Absolute, out var api))
+            {
+                throw new InvalidOperationException($"The --api value '{apiText}' is not a valid absolute URI.");
+            }
+
             var logger = new BadRecordLogger(errors.FullName);
             var parser = new PersonFileParser(logger);
             var writer = new XmlBatchWriter();
