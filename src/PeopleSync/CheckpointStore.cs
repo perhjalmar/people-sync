@@ -2,6 +2,7 @@ namespace PeopleSync;
 
 public sealed class CheckpointStore
 {
+    private readonly SemaphoreSlim _gate = new(1, 1);
     private readonly string _path;
 
     public CheckpointStore(string path)
@@ -50,6 +51,14 @@ public sealed class CheckpointStore
         }
 
         var line = string.Join('|', fingerprint, batchIndex.ToString(System.Globalization.CultureInfo.InvariantCulture), idempotencyKey, timestamp.ToString("O"));
-        await File.AppendAllTextAsync(_path, line + Environment.NewLine, cancellationToken).ConfigureAwait(false);
+        await _gate.WaitAsync(cancellationToken).ConfigureAwait(false);
+        try
+        {
+            await File.AppendAllTextAsync(_path, line + Environment.NewLine, cancellationToken).ConfigureAwait(false);
+        }
+        finally
+        {
+            _gate.Release();
+        }
     }
 }

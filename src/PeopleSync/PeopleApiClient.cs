@@ -83,7 +83,10 @@ public class PeopleApiClient : IAsyncDisposable
                     continue;
                 }
 
-                throw new HttpRequestException($"System B returned {(int)response.StatusCode} {response.ReasonPhrase}.", null, response.StatusCode);
+                var statusCode = response.StatusCode;
+                var reasonPhrase = response.ReasonPhrase;
+                response.Dispose();
+                throw new HttpRequestException($"System B returned {(int)statusCode} {reasonPhrase}.", null, statusCode);
             }
             catch (OperationCanceledException) when (!cancellationToken.IsCancellationRequested && attempt < MaxRetries)
             {

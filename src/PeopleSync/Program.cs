@@ -31,7 +31,7 @@ public static class Program
         var errorsOption = new Option<FileInfo>("--errors")
         {
             Description = "Bad-record JSONL log path",
-            DefaultValueFactory = _ => new FileInfo("errors.log")
+            DefaultValueFactory = _ => new FileInfo("errors.jsonl")
         };
 
         var command = new RootCommand("Synchronize people from a legacy export file into System B.");
@@ -45,7 +45,7 @@ public static class Program
             var input = parseResult.GetRequiredValue(inputOption);
             var apiText = parseResult.GetRequiredValue(apiOption);
             var checkpoint = parseResult.GetValue(checkpointOption) ?? new FileInfo("checkpoint.log");
-            var errors = parseResult.GetValue(errorsOption) ?? new FileInfo("errors.log");
+            var errors = parseResult.GetValue(errorsOption) ?? new FileInfo("errors.jsonl");
             if (!Uri.TryCreate(apiText, UriKind.Absolute, out var api))
             {
                 throw new InvalidOperationException($"The --api value '{apiText}' is not a valid absolute URI.");
