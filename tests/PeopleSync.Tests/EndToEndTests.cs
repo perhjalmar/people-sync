@@ -95,6 +95,9 @@ public sealed class EndToEndTests
 
             var parser = new PersonFileParser(new BadRecordLogger(Path.Combine(tempDirectory.FullName, "errors.jsonl")));
             var process = Process.GetCurrentProcess();
+            GC.Collect();
+            GC.WaitForPendingFinalizers();
+            GC.Collect();
             var baseline = process.WorkingSet64;
             long peak = baseline;
             var count = 0;
@@ -104,16 +107,9 @@ public sealed class EndToEndTests
                 count++;
                 if (count % 50_000 == 0)
                 {
-                    GC.Collect();
-                    GC.WaitForPendingFinalizers();
-                    GC.Collect();
                     peak = Math.Max(peak, process.WorkingSet64);
                 }
             }
-
-            GC.Collect();
-            GC.WaitForPendingFinalizers();
-            GC.Collect();
             peak = Math.Max(peak, process.WorkingSet64);
 
             Assert.Equal(1_000_000, count);

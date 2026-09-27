@@ -212,11 +212,12 @@ public sealed class PersonFileParser
 
         Span<byte> preamble = stackalloc byte[3];
         var bytesRead = stream.Read(preamble);
-        var encoding = bytesRead >= 3 && preamble[0] == 0xEF && preamble[1] == 0xBB && preamble[2] == 0xBF
+        var hasUtf8Bom = bytesRead >= 3 && preamble[0] == 0xEF && preamble[1] == 0xBB && preamble[2] == 0xBF;
+        var encoding = hasUtf8Bom
             ? new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)
             : Encoding.GetEncoding(1252);
 
-        stream.Position = encoding is UTF8Encoding ? 3 : 0;
+        stream.Position = hasUtf8Bom ? 3 : 0;
         return new StreamReader(stream, encoding, detectEncodingFromByteOrderMarks: false, leaveOpen: false);
     }
 

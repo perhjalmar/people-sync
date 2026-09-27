@@ -27,11 +27,11 @@ public class PeopleApiClient : IAsyncDisposable
         _ownsHttpClient = httpClient is null;
         _rateLimiter = rateLimiter ?? new TokenBucketRateLimiter(new TokenBucketRateLimiterOptions
         {
-            TokenLimit = 10,
+            TokenLimit = 1,
             QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
             QueueLimit = int.MaxValue,
-            ReplenishmentPeriod = TimeSpan.FromSeconds(1),
-            TokensPerPeriod = 10,
+            ReplenishmentPeriod = TimeSpan.FromMilliseconds(110),
+            TokensPerPeriod = 1,
             AutoReplenishment = true
         });
         _ownsRateLimiter = rateLimiter is null;

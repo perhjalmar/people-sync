@@ -25,11 +25,16 @@ public sealed class ApiClientTests
         await using var apiClient = new PeopleApiClient(new Uri("http://localhost/people/batch"), httpClient: httpClient);
         var payload = Encoding.UTF8.GetBytes("<people />");
 
-        await Task.WhenAll(Enumerable.Range(0, 11).Select(index => apiClient.SendBatchAsync(payload, $"key-{index}")));
+        await Task.WhenAll(Enumerable.Range(0, 25).Select(index => apiClient.SendBatchAsync(payload, $"key-{index}")));
 
         var ordered = timestamps.OrderBy(timestamp => timestamp).ToArray();
-        Assert.Equal(11, ordered.Length);
-        Assert.True(ordered[10] - ordered[0] >= TimeSpan.FromMilliseconds(900), "Expected the 11th request to be delayed by the rate limiter.");
+        Assert.Equal(25, ordered.Length);
+
+        for (var start = 0; start < ordered.Length; start++)
+        {
+            var countInWindow = ordered.Count(timestamp => timestamp >= ordered[start] && timestamp < ordered[start] + TimeSpan.FromSeconds(1));
+            Assert.True(countInWindow <= 10, $"Observed {countInWindow} requests completing within one second starting at {ordered[start]:O}.");
+        }
     }
 
     [Fact]
