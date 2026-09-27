@@ -58,7 +58,7 @@ public sealed class EndToEndTests
             await Assert.ThrowsAsync<InvalidOperationException>(() => runner.RunAsync(inputPath));
 
             var firstRunPeopleCount = fakeSystemB.State.ReceivedPeople.Count;
-            Assert.Equal(500, firstRunPeopleCount);
+            Assert.Equal(501, firstRunPeopleCount);
 
             await using var apiClient = new PeopleApiClient(new Uri(fakeSystemB.BaseUri, "/people/batch"));
             var resumeRunner = new SyncRunner(parser, writer, apiClient, checkpointStore);
@@ -69,6 +69,7 @@ public sealed class EndToEndTests
             Assert.Equal(1, summary.SkippedBatches);
             Assert.Equal(501, fakeSystemB.State.ReceivedPeople.Count);
             Assert.Equal(501, fakeSystemB.State.ReceivedPeople.Select(person => $"{person.FirstName}-{person.LastName}").Distinct().Count());
+            Assert.Equal(2, (await File.ReadAllLinesAsync(checkpointPath)).Length);
         }
         finally
         {
