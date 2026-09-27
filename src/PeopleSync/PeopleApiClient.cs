@@ -7,9 +7,11 @@ namespace PeopleSync;
 
 public class PeopleApiClient : IAsyncDisposable
 {
+    private readonly Queue<DateTimeOffset> _dispatchTimes = new();
     private readonly Func<TimeSpan, CancellationToken, Task> _delayAsync;
     private readonly HttpClient _httpClient;
     private readonly bool _ownsHttpClient;
+    private readonly SemaphoreSlim _rateGate = new(1, 1);
     private readonly RateLimiter _rateLimiter;
     private readonly bool _ownsRateLimiter;
     private readonly Uri _requestUri;
@@ -25,14 +27,11 @@ public class PeopleApiClient : IAsyncDisposable
         _requestUri = requestUri;
         _httpClient = httpClient ?? new HttpClient();
         _ownsHttpClient = httpClient is null;
-        _rateLimiter = rateLimiter ?? new TokenBucketRateLimiter(new TokenBucketRateLimiterOptions
+        _rateLimiter = rateLimiter ?? new ConcurrencyLimiter(new ConcurrencyLimiterOptions
         {
-            TokenLimit = 1,
+            PermitLimit = 1,
             QueueProcessingOrder = QueueProcessingOrder.OldestFirst,
-            QueueLimit = int.MaxValue,
-            ReplenishmentPeriod = TimeSpan.FromMilliseconds(110),
-            TokensPerPeriod = 1,
-            AutoReplenishment = true
+            QueueLimit = int.MaxValue
         });
         _ownsRateLimiter = rateLimiter is null;
         _delayAsync = delayAsync ?? ((delay, cancellationToken) => Task.Delay(delay, cancellationToken));
@@ -56,6 +55,8 @@ public class PeopleApiClient : IAsyncDisposable
             {
                 throw new InvalidOperationException("Unable to acquire API rate-limiter lease.");
             }
+
+            await WaitForRateLimitSlotAsync(cancellationToken).ConfigureAwait(false);
 
             using var request = new HttpRequestMessage(HttpMethod.Post, _requestUri)
             {
@@ -144,5 +145,40 @@ public class PeopleApiClient : IAsyncDisposable
     {
         var milliseconds = Math.Min(250 * Math.Pow(2, attempt), 5_000);
         return TimeSpan.FromMilliseconds(milliseconds);
+    }
+
+    private async Task WaitForRateLimitSlotAsync(CancellationToken cancellationToken)
+    {
+        while (true)
+        {
+            TimeSpan? delay = null;
+
+            await _rateGate.WaitAsync(cancellationToken).ConfigureAwait(false);
+            try
+            {
+                var now = DateTimeOffset.UtcNow;
+                while (_dispatchTimes.Count > 0 && now - _dispatchTimes.Peek() >= TimeSpan.FromSeconds(1))
+                {
+                    _dispatchTimes.Dequeue();
+                }
+
+                if (_dispatchTimes.Count < 10)
+                {
+                    _dispatchTimes.Enqueue(now);
+                    return;
+                }
+
+                delay = _dispatchTimes.Peek().AddSeconds(1) - now + TimeSpan.FromMilliseconds(1);
+            }
+            finally
+            {
+                _rateGate.Release();
+            }
+
+            if (delay.GetValueOrDefault() > TimeSpan.Zero)
+            {
+                await _delayAsync(delay.Value, cancellationToken).ConfigureAwait(false);
+            }
+        }
     }
 }

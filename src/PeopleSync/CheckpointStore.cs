@@ -1,6 +1,6 @@
 namespace PeopleSync;
 
-public sealed class CheckpointStore
+public class CheckpointStore
 {
     private readonly SemaphoreSlim _gate = new(1, 1);
     private readonly string _path;
@@ -10,7 +10,7 @@ public sealed class CheckpointStore
         _path = path;
     }
 
-    public async Task<HashSet<int>> ReadConfirmedBatchIndexesAsync(string fingerprint, CancellationToken cancellationToken = default)
+    public virtual async Task<HashSet<int>> ReadConfirmedBatchIndexesAsync(string fingerprint, CancellationToken cancellationToken = default)
     {
         var indexes = new HashSet<int>();
         if (!File.Exists(_path))
@@ -42,7 +42,7 @@ public sealed class CheckpointStore
         return indexes;
     }
 
-    public async Task AppendConfirmedBatchAsync(string fingerprint, int batchIndex, string idempotencyKey, DateTimeOffset timestamp, CancellationToken cancellationToken = default)
+    public virtual async Task AppendConfirmedBatchAsync(string fingerprint, int batchIndex, string idempotencyKey, DateTimeOffset timestamp, CancellationToken cancellationToken = default)
     {
         var directory = Path.GetDirectoryName(_path);
         if (!string.IsNullOrEmpty(directory))

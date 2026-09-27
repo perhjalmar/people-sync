@@ -48,7 +48,8 @@ public static class Program
             var errors = parseResult.GetValue(errorsOption) ?? new FileInfo("errors.jsonl");
             if (!Uri.TryCreate(apiText, UriKind.Absolute, out var api))
             {
-                throw new InvalidOperationException($"The --api value '{apiText}' is not a valid absolute URI.");
+                Console.Error.WriteLine($"The --api value '{apiText}' is not a valid absolute URI.");
+                return 1;
             }
 
             var logger = new BadRecordLogger(errors.FullName);

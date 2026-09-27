@@ -50,10 +50,10 @@ public sealed class EndToEndTests
 
             var logger = new BadRecordLogger(errorsPath);
             var parser = new PersonFileParser(logger);
-            var checkpointStore = new CheckpointStore(checkpointPath);
+            var checkpointStore = new CrashOnSecondAppendCheckpointStore(checkpointPath);
             var writer = new XmlBatchWriter();
-            var crashClient = new CrashOnceApiClient(new Uri(fakeSystemB.BaseUri, "/people/batch"));
-            var runner = new SyncRunner(parser, writer, crashClient, checkpointStore);
+            await using var firstRunApiClient = new PeopleApiClient(new Uri(fakeSystemB.BaseUri, "/people/batch"));
+            var runner = new SyncRunner(parser, writer, firstRunApiClient, checkpointStore);
 
             await Assert.ThrowsAsync<InvalidOperationException>(() => runner.RunAsync(inputPath));
 
@@ -61,7 +61,7 @@ public sealed class EndToEndTests
             Assert.Equal(501, firstRunPeopleCount);
 
             await using var apiClient = new PeopleApiClient(new Uri(fakeSystemB.BaseUri, "/people/batch"));
-            var resumeRunner = new SyncRunner(parser, writer, apiClient, checkpointStore);
+            var resumeRunner = new SyncRunner(parser, writer, apiClient, new CheckpointStore(checkpointPath));
             var summary = await resumeRunner.RunAsync(inputPath);
 
             Assert.Equal(501, summary.ParsedPeople);
@@ -143,24 +143,23 @@ public sealed class EndToEndTests
         return builder.ToString();
     }
 
-    private sealed class CrashOnceApiClient : PeopleApiClient
+    private sealed class CrashOnSecondAppendCheckpointStore : CheckpointStore
     {
-        private int _requestCount;
-        public CrashOnceApiClient(Uri endpoint) : base(endpoint)
+        private bool _hasThrown;
+
+        public CrashOnSecondAppendCheckpointStore(string path) : base(path)
         {
         }
 
-        public override async Task<HttpResponseMessage> SendBatchAsync(byte[] xmlPayload, string idempotencyKey, CancellationToken cancellationToken = default)
+        public override Task AppendConfirmedBatchAsync(string fingerprint, int batchIndex, string idempotencyKey, DateTimeOffset timestamp, CancellationToken cancellationToken = default)
         {
-            _requestCount++;
-            var response = await base.SendBatchAsync(xmlPayload, idempotencyKey, cancellationToken);
-            if (_requestCount == 2)
+            if (batchIndex == 1 && !_hasThrown)
             {
-                response.Dispose();
+                _hasThrown = true;
                 throw new InvalidOperationException("Simulated crash after the second batch was accepted but before checkpointing.");
             }
 
-            return response;
+            return base.AppendConfirmedBatchAsync(fingerprint, batchIndex, idempotencyKey, timestamp, cancellationToken);
         }
     }
 
