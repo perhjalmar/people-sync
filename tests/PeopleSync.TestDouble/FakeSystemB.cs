@@ -9,7 +9,11 @@ public static class Program
 {
     public static async Task Main(string[] args)
     {
-        await using var host = await FakeSystemB.StartAsync(cancellationToken: default).ConfigureAwait(false);
+        var portIndex = Array.IndexOf(args, "--port");
+        var port = portIndex >= 0 && portIndex + 1 < args.Length ? int.Parse(args[portIndex + 1]) : 5000;
+
+        await using var host = await FakeSystemB.StartAsync(port: port, cancellationToken: default).ConfigureAwait(false);
+        Console.WriteLine($"Fake System B listening on {new Uri(host.BaseUri, "/people/batch")}");
         await host.App.WaitForShutdownAsync().ConfigureAwait(false);
     }
 }
@@ -126,12 +130,12 @@ public sealed class FakeSystemBHost : IAsyncDisposable
 
 public static class FakeSystemB
 {
-    public static async Task<FakeSystemBHost> StartAsync(FakeSystemBOptions? options = null, CancellationToken cancellationToken = default)
+    public static async Task<FakeSystemBHost> StartAsync(FakeSystemBOptions? options = null, int port = 0, CancellationToken cancellationToken = default)
     {
         options ??= new FakeSystemBOptions();
 
         var builder = WebApplication.CreateSlimBuilder();
-        builder.WebHost.UseUrls("http://127.0.0.1:0");
+        builder.WebHost.UseUrls($"http://127.0.0.1:{port}");
         var app = builder.Build();
         var state = new FakeSystemBState();
 

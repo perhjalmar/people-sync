@@ -22,12 +22,14 @@ Start the fake System B in one terminal:
 dotnet run --project tests/PeopleSync.TestDouble -- --port 5000
 ```
 
+The test double prints the URL it is listening on, e.g. `Fake System B listening on http://127.0.0.1:5000/people/batch`. Use that URL as `--api`.
+
 In another terminal, run the sync:
 
 ```bash
 dotnet run --project src/PeopleSync -- \
   --input examples/sample-input-1000.txt \
-  --api http://localhost:5000 \
+  --api http://localhost:5000/people/batch \
   --checkpoint checkpoint.log \
   --errors errors.log \
   --output people-output.xml
@@ -37,10 +39,15 @@ The records accepted by System B are also written to a timestamped file, e.g. `p
 
 **Expected output:**
 ```
-Done. Parsed=1000 Sent=2 Skipped=0 SentBatches=2
+Fingerprint: <file fingerprint>
+Parsed people: 1000
+Sent batches: 2
+Skipped batches: 0
 ```
 
 (1000 people ÷ 500 per batch = 2 batches)
+
+The checkpoint and errors files are created in the current working directory unless you pass absolute paths.
 
 ### Step 3: Run against production System B
 
@@ -65,7 +72,7 @@ Note: batches already in the checkpoint are not re-sent and not written again, s
 
 ## Checking results
 
-- **Success**: look for `Parsed=X Sent=Y` in the output
+- **Success**: look for `Parsed people: X` and `Sent batches: Y` in the output
 - **Errors**: check `errors.log` (JSON lines format) for bad records and rejected batches
 - **Checkpoints**: check `checkpoint.log` to see which batches completed successfully
 
