@@ -1,0 +1,601 @@
+P|Victoria|Bernadotte
+D|Princess|Works in the Royal Castle
+T|070-0101010|0459-123456
+A|Haga Slott|Stockholm|101
+F|Estelle|2012
+A|Solliden|Öland|10002
+F|Oscar|2016
+A|Solliden|Öland|10002
+T|0702-020202|020-202020
+P|Joe|Biden
+A|White House|Washington, D.C|20500
+D|POTUS|Head of country & State
+F|John|1972
+A|New York|New York|123456
+T|555-123456|555-654321
+P|Marie|Curie
+D|Physicist|Nobel Prize winner
+T|+33-1-4340-5748|
+A|Lab|Paris|75005
+F|Irène|1897
+A|Paris|France|75001
+P|Albert|Einstein
+D|Physicist|Theory of Relativity
+T|+41-44-6325000|
+A|ETH Zurich|Zurich|8092
+F|Hans|1904
+A|Berlin|Germany|10115
+P|Rosalind|Franklin
+D|Crystallographer|DNA structure research
+T|+44-20-7679|
+A|King's College London|London|WC2R
+F|David|1941
+A|London|United Kingdom|EC1A
+P|Richard|Feynman
+D|Physicist|QED pioneer
+T|+1-626-395|
+A|Caltech|Pasadena|91125
+F|Michelle|1968
+A|Los Angeles|California|90001
+P|Dorothy|Hodgkin
+D|Chemist|X-ray crystallography
+T|+44-1865-272|
+A|Oxford University|Oxford|OX1
+F|Toby|1942
+A|Oxford|United Kingdom|OX2
+P|Linus|Pauling
+D|Chemist|Chemical bonds
+T|+1-541-737|
+A|Oregon State University|Corvallis|97331
+F|Linus|1940
+A|Portland|Oregon|97201
+P|Rita|Levi-Montalcini
+D|Neurobiologist|Nerve growth factor
+T|+39-06-4991|
+A|University La Sapienza|Rome|00185
+F|Piero|1919
+A|Rome|Italy|00100
+P|Max|Planck
+D|Physicist|Quantum mechanics
+T|+49-30-8413|
+A|Kaiser Wilhelm Institute|Berlin|14195
+F|Erwin|1928
+A|Berlin|Germany|10117
+P|Niels|Bohr
+D|Physicist|Atomic model
+T|+45-45-25|
+A|Institute of Theoretical Physics|Copenhagen|2100
+F|Christian|1932
+A|Copenhagen|Denmark|1000
+P|Werner|Heisenberg
+D|Physicist|Uncertainty principle
+T|+49-89-2180|
+A|Max Planck Institute|Munich|80805
+F|Wolfgang|1934
+A|Munich|Germany|80331
+P|Paul|Dirac
+D|Physicist|Antimatter
+T|+44-1223-337|
+A|Cambridge University|Cambridge|CB2
+F|Gabriel|1933
+A|Cambridge|United Kingdom|CB1
+P|Erwin|Schrödinger
+D|Physicist|Wave mechanics
+T|+43-1-4277|
+A|University of Vienna|Vienna|1010
+F|Ruthild|1936
+A|Vienna|Austria|1020
+P|Wolfgang|Pauli
+D|Physicist|Exclusion principle
+T|+41-56-310|
+A|ETH Zurich|Zurich|8093
+F|Christoph|1945
+A|Zurich|Switzerland|8001
+P|Enrico|Fermi
+D|Physicist|Nuclear reactions
+T|+1-773-702|
+A|University of Chicago|Chicago|60637
+F|Giulio|1936
+A|Chicago|Illinois|60601
+P|Subrahmanyan|Chandrasekhar
+D|Astrophysicist|Stellar evolution
+T|+1-773-702|
+A|University of Chicago|Chicago|60637
+F|Balakrishnan|1936
+A|Chicago|Illinois|60615
+P|George|Paget Thomson
+D|Physicist|Electron diffraction
+T|+44-1223-337|
+A|Cambridge University|Cambridge|CB2
+F|George|1929
+A|Cambridge|United Kingdom|CB3
+P|Clinton|Davisson
+D|Physicist|Electron waves
+T|+1-516-344|
+A|Bell Labs|Holmdel|07733
+F|Richard|1930
+A|New York|New York|10001
+P|Pieter|Zeeman
+D|Physicist|Zeeman effect
+T|+31-20-525|
+A|University of Amsterdam|Amsterdam|1018
+F|Hendrik|1888
+A|Amsterdam|Netherlands|1012
+P|Hendrik|Antoon Lorentz
+D|Physicist|Electromagnetic theory
+T|+31-71-527|
+A|Leiden University|Leiden|2311
+F|Gerrit|1871
+A|Leiden|Netherlands|2311
+P|Philipp|Lenard
+D|Physicist|Photoelectric effect
+T|+49-2761-702|
+A|University of Heidelberg|Heidelberg|69120
+F|Philipp|1894
+A|Heidelberg|Germany|69115
+P|Max|von Laue
+D|Physicist|X-ray diffraction
+T|+49-30-8413|
+A|Kaiser Wilhelm Institute|Berlin|14195
+F|Theodor|1914
+A|Berlin|Germany|10179
+P|Nils|Dalén
+D|Inventor|Automatic lighthouse
+T|+46-31-772|
+A|AGA Company|Västra Göteborg|41250
+F|Gunnar|1906
+A|Gothenburg|Sweden|41100
+P|Henri|Moissan
+D|Chemist|Fluorine isolation
+T|+33-1-4432|
+A|University of Paris|Paris|75005
+F|Ferdinand|1900
+A|Paris|France|75001
+P|Adolf|von Baeyer
+D|Chemist|Organic synthesis
+T|+49-89-2180|
+A|University of Munich|Munich|80802
+F|Richard|1881
+A|Munich|Germany|80331
+P|Jacobus|Henricus van 't Hoff
+D|Chemist|Chemical kinetics
+T|+31-30-253|
+A|University of Utrecht|Utrecht|3584
+F|Jacobus|1878
+A|Utrecht|Netherlands|3511
+P|Emil|Fischer
+D|Chemist|Enzyme chemistry
+T|+49-30-2093|
+A|Humboldt University|Berlin|10117
+F|Hermann|1888
+A|Berlin|Germany|10115
+P|Svante|Arrhenius
+D|Chemist|Ionic dissociation
+T|+46-8-16|
+A|Nobel Institute|Stockholm|10405
+F|Staffan|1886
+A|Stockholm|Sweden|10100
+P|Wilhelm|Ostwald
+D|Chemist|Catalysis
+T|+49-3641-950|
+A|University of Leipzig|Leipzig|04109
+F|Wolfgang|1903
+A|Leipzig|Germany|04103
+P|Jacobus|Henricus van 't Hoff Jr
+D|Chemist|Stereochemistry
+T|+31-30-253|
+A|University of Utrecht|Utrecht|3584
+F|Gideon|1903
+A|Utrecht|Netherlands|3513
+P|Alfred|Werner
+D|Chemist|Coordination chemistry
+T|+41-44-6325|
+A|University of Zurich|Zurich|8007
+F|Jean-Pierre|1908
+A|Zurich|Switzerland|8001
+P|Fritz|Haber
+D|Chemist|Ammonia synthesis
+T|+49-30-8413|
+A|Kaiser Wilhelm Institute|Berlin|14195
+F|Hermann|1917
+A|Berlin|Germany|10117
+P|Walther|Hermann Nernst
+D|Chemist|Thermodynamics
+T|+49-30-2093|
+A|Humboldt University|Berlin|10117
+F|Hildegard|1912
+A|Berlin|Germany|10115
+P|Theodore|William Richards
+D|Chemist|Atomic weights
+T|+1-617-496|
+A|Harvard University|Cambridge|02138
+F|William|1901
+A|Cambridge|Massachusetts|02139
+P|Grignard|Victor
+D|Chemist|Organometallic chemistry
+T|+33-4-7272|
+A|University of Lyons|Lyons|69000
+F|André|1910
+A|Lyon|France|69001
+P|Paul|Sabatier
+D|Chemist|Hydrogenation
+T|+33-5-6155|
+A|University of Toulouse|Toulouse|31062
+F|Jean|1911
+A|Toulouse|France|31000
+P|Richard|Adolf Zsigmondy
+D|Chemist|Colloid chemistry
+T|+49-69-798|
+A|University of Frankfurt|Frankfurt|60323
+F|Rudolf|1919
+A|Frankfurt|Germany|60311
+P|Frederic|Joliot-Curie
+D|Physicist|Artificial radioactivity
+T|+33-1-4427|
+A|Institute of Radium|Paris|75005
+F|Michel|1934
+A|Paris|France|75001
+P|Irène|Joliot-Curie
+D|Physicist|Radioactivity
+T|+33-1-4427|
+A|Institute of Radium|Paris|75005
+F|Hélène|1927
+A|Paris|France|75005
+P|Peter|Debye
+D|Physicist|Molecular structure
+T|+31-30-253|
+A|University of Utrecht|Utrecht|3584
+F|Peter Jr|1932
+A|Utrecht|Netherlands|3511
+P|Irving|Langmuir
+D|Chemist|Surface chemistry
+T|+1-518-372|
+A|General Electric|Schenectady|12305
+F|Kenneth|1920
+A|Schenectady|New York|12345
+P|Otto|Wallach
+D|Chemist|Alicyclic compounds
+T|+49-69-798|
+A|University of Frankfurt|Frankfurt|60323
+F|Wolfgang|1900
+A|Frankfurt|Germany|60314
+P|Wilhelm|Ostwald Jr
+D|Chemist|Physical chemistry
+T|+49-3641-950|
+A|University of Leipzig|Leipzig|04109
+F|Wilhelm|1908
+A|Leipzig|Germany|04103
+P|Christiaan|Eijkman
+D|Physician|Vitamin research
+T|+31-30-253|
+A|University of Utrecht|Utrecht|3584
+F|Jan|1906
+A|Utrecht|Netherlands|3512
+P|Frederick|Gowland Hopkins
+D|Biochemist|Vitamins
+T|+44-1223-337|
+A|Cambridge University|Cambridge|CB2
+F|Jacqueline|1918
+A|Cambridge|United Kingdom|CB1
+P|Corneille|Jean François Heymans
+D|Physiologist|Carotid sinus
+T|+32-9-264|
+A|University of Ghent|Ghent|9000
+F|Jan|1918
+A|Ghent|Belgium|9000
+P|Albert|Szent-Gyorgyi
+D|Biochemist|Vitamin C
+T|+36-1-461|
+A|University of Budapest|Budapest|1083
+F|András|1924
+A|Budapest|Hungary|1011
+P|Edward|Calvin Kendall
+D|Endocrinologist|Adrenal cortex
+T|+1-507-284|
+A|Mayo Clinic|Rochester|55905
+F|Edward Jr|1932
+A|Rochester|Minnesota|55902
+P|Tadeus|Reichstein
+D|Chemist|Adrenal hormones
+T|+41-61-267|
+A|University of Basel|Basel|4056
+F|Ludwig|1935
+A|Basel|Switzerland|4001
+P|Hermann|Staudinger
+D|Chemist|Macromolecules
+T|+49-721-608|
+A|Karlsruhe Institute|Karlsruhe|76131
+F|Helmut|1925
+A|Karlsruhe|Germany|76133
+P|Linus|Pauling Jr
+D|Chemist|Chemical bonds theory
+T|+1-541-737|
+A|Oregon State University|Corvallis|97331
+F|Peter|1929
+A|Corvallis|Oregon|97330
+P|William|Francis Giauque
+D|Chemist|Low temperature chemistry
+T|+1-510-642|
+A|University of California|Berkeley|94720
+F|William Jr|1928
+A|Berkeley|California|94704
+P|Willard|Frank Libby
+D|Chemist|Radiocarbon dating
+T|+1-310-825|
+A|UCLA|Los Angeles|90095
+F|James|1951
+A|Los Angeles|California|90001
+P|Vincent|du Vigneaud
+D|Biochemist|Protein hormones
+T|+1-607-255|
+A|Cornell University|Ithaca|14853
+F|Vincent Jr|1933
+A|Ithaca|New York|14850
+P|John|Howard Northrop
+D|Biochemist|Enzyme chemistry
+T|+1-609-734|
+A|Princeton University|Princeton|08544
+F|John Jr|1917
+A|Princeton|New Jersey|08540
+P|Wendell|Meredith Stanley
+D|Biochemist|Virus proteins
+T|+1-510-642|
+A|University of California|Berkeley|94720
+F|Wendell Jr|1936
+A|Berkeley|California|94705
+P|Frederick|Sanger
+D|Biochemist|Insulin structure
+T|+44-1223-337|
+A|Cambridge University|Cambridge|CB2
+F|Peter|1940
+A|Cambridge|United Kingdom|CB2
+P|Hans|Adolf Krebs
+D|Biochemist|Citric acid cycle
+T|+49-69-798|
+A|University of Frankfurt|Frankfurt|60323
+F|Ulrich|1932
+A|Frankfurt|Germany|60311
+P|Fritz|Albert Lipmann
+D|Biochemist|Coenzyme A
+T|+1-617-726|
+A|Harvard Medical School|Boston|02115
+F|Fritz Jr|1936
+A|Boston|Massachusetts|02101
+P|Max|Ferdinand Perutz
+D|Biophysicist|Protein structure
+T|+44-1223-337|
+A|Cambridge University|Cambridge|CB2
+F|Vivian|1954
+A|Cambridge|United Kingdom|CB1
+P|John|Cowdery Kendrew
+D|Biophysicist|Myoglobin structure
+T|+44-1223-337|
+A|Cambridge University|Cambridge|CB2
+F|Jane|1957
+A|Cambridge|United Kingdom|CB3
+P|Melvin|Calvin
+D|Biochemist|Photosynthesis
+T|+1-510-642|
+A|University of California|Berkeley|94720
+F|Geoffrey|1930
+A|Berkeley|California|94704
+P|Konrad|Emil Bloch
+D|Biochemist|Cholesterol synthesis
+T|+1-617-496|
+A|Harvard University|Cambridge|02138
+F|Konrad Jr|1925
+A|Cambridge|Massachusetts|02139
+P|Feodor|Lynen
+D|Biochemist|Fatty acid metabolism
+T|+49-89-2180|
+A|University of Munich|Munich|80802
+F|Feodor Jr|1927
+A|Munich|Germany|80331
+P|Luis|Federico Leloir
+D|Biochemist|Sugar nucleotides
+T|+54-11-4789|
+A|IBBM|Buenos Aires|1428
+F|Carlos|1939
+A|Buenos Aires|Argentina|1001
+P|Severo|Ochoa
+D|Biochemist|RNA synthesis
+T|+1-212-650|
+A|New York University|New York|10010
+F|Severo Jr|1925
+A|New York|New York|10001
+P|Arthur|Wald Kornberg
+D|Biochemist|DNA synthesis
+T|+1-650-723|
+A|Stanford University|Stanford|94305
+F|Roger|1953
+A|Stanford|California|94301
+P|Max|Theiler
+D|Virologist|Yellow fever vaccine
+T|+1-212-327|
+A|Rockefeller University|New York|10065
+F|Max Jr|1930
+A|New York|New York|10001
+P|Christiaan|Neethling Barnard
+D|Surgeon|Heart transplant
+T|+27-21-406|
+A|University of Cape Town|Cape Town|7925
+F|Louis|1958
+A|Cape Town|South Africa|8000
+P|Sydney|Brenner
+D|Biologist|Molecular genetics
+T|+65-6874|
+A|Molecular Engineering Lab|Singapore|138602
+F|Michael|1954
+A|Singapore|Singapore|123456
+P|Francis|Harry Compton Crick
+D|Biophysicist|DNA structure
+T|+44-1223-337|
+A|Cambridge University|Cambridge|CB2
+F|Michael|1949
+A|Cambridge|United Kingdom|CB1
+P|James|Dewey Watson
+D|Biologist|DNA discovery
+T|+1-212-327|
+A|Cold Spring Harbor|New York|11724
+F|Rufus|1968
+A|New York|New York|10001
+P|Maurice|Hugh Frederick Wilkins
+D|Biophysicist|DNA X-rays
+T|+44-20-7679|
+A|King's College London|London|WC2R
+F|Christopher|1950
+A|London|United Kingdom|WC1A
+P|Aleksandr|Mikhailovich Prokhorov
+D|Physicist|Maser technology
+T|+7-495-9391|
+A|Lebedev Institute|Moscow|119991
+F|Vladimir|1940
+A|Moscow|Russia|101000
+P|Nikolay|Gennadiyevich Basov
+D|Physicist|Laser physics
+T|+7-495-9391|
+A|Lebedev Institute|Moscow|119991
+F|Andrey|1947
+A|Moscow|Russia|101010
+P|Charles|Hard Townes
+D|Physicist|Maser theory
+T|+1-510-642|
+A|University of California|Berkeley|94720
+F|Charles Jr|1925
+A|Berkeley|California|94701
+P|Nicolay|Gerasimovich Basov
+D|Physicist|Quantum mechanics
+T|+7-495-9391|
+A|Lebedev Institute|Moscow|119991
+F|Sergei|1943
+A|Moscow|Russia|101001
+P|Pyotr|Leonidovich Kapitsa
+D|Physicist|Liquid helium
+T|+7-495-9391|
+A|Lebedev Institute|Moscow|119991
+F|Andrei|1923
+A|Moscow|Russia|101002
+P|John|Bardeen
+D|Physicist|Superconductivity
+T|+1-217-333|
+A|University of Illinois|Urbana|61801
+F|William|1925
+A|Urbana|Illinois|61801
+P|Leon|Neil Cooper
+D|Physicist|Cooper pairs
+T|+1-401-863|
+A|Brown University|Providence|02912
+F|Leon Jr|1930
+A|Providence|Rhode Island|02903
+P|John|Robert Schrieffer
+D|Physicist|BCS theory
+T|+1-607-255|
+A|Cornell University|Ithaca|14853
+F|John Jr|1931
+A|Ithaca|New York|14850
+P|Eugene|Paul Wigner
+D|Physicist|Symmetry principles
+T|+1-609-258|
+A|Princeton University|Princeton|08544
+F|David|1937
+A|Princeton|New Jersey|08540
+P|Maria|Goeppert Mayer
+D|Physicist|Nuclear structure
+T|+1-858-534|
+A|UC San Diego|San Diego|92093
+F|Marianne|1933
+A|San Diego|California|92101
+P|J.|Hans D. Jensen
+D|Physicist|Nuclear shell model
+T|+49-69-798|
+A|University of Frankfurt|Frankfurt|60323
+F|Hans|1911
+A|Frankfurt|Germany|60311
+P|Richard|Phillips Feynman
+D|Physicist|QED developer
+T|+1-626-395|
+A|Caltech|Pasadena|91125
+F|Carl|1933
+A|Pasadena|California|91101
+P|Julian|Seymour Schwinger
+D|Physicist|Quantum electrodynamics
+T|+1-310-825|
+A|UCLA|Los Angeles|90095
+F|Julian Jr|1934
+A|Los Angeles|California|90001
+P|Shinichiro|Tomonaga
+D|Physicist|QED theory
+T|+81-3-5454|
+A|Tokyo University|Tokyo|113-0033
+F|Yukawa|1935
+A|Tokyo|Japan|100-0001
+P|Robert|Burns Woodward
+D|Chemist|Organic synthesis
+T|+1-617-496|
+A|Harvard University|Cambridge|02138
+F|Robert Jr|1917
+A|Cambridge|Massachusetts|02138
+P|Roald|Hoffmann
+D|Chemist|Orbital theory
+T|+1-607-255|
+A|Cornell University|Ithaca|14853
+F|Roald Jr|1937
+A|Ithaca|New York|14850
+P|Derek|Harold Richard Barton
+D|Chemist|Conformational analysis
+T|+44-20-7679|
+A|King's College London|London|WC2R
+F|William|1918
+A|London|United Kingdom|WC1E
+P|Odd|Hassel
+D|Chemist|Conformational analysis
+T|+47-22-85|
+A|University of Oslo|Oslo|0316
+F|Odd Jr|1920
+A|Oslo|Norway|0150
+P|Dorothy|Mary Crowfoot Hodgkin
+D|Chemist|X-ray crystallography
+T|+44-1865-272|
+A|Oxford University|Oxford|OX1
+F|Elizabeth|1942
+A|Oxford|United Kingdom|OX2
+P|Luis|Federico Leloir Jr
+D|Biochemist|Carbohydrate metabolism
+T|+54-11-4789|
+A|IBBM|Buenos Aires|1428
+F|Diego|1936
+A|Buenos Aires|Argentina|1001
+P|Christian|Boehmer Anfinsen
+D|Biochemist|Protein folding
+T|+1-301-496|
+A|NIH|Bethesda|20892
+F|Christian Jr|1929
+A|Bethesda|Maryland|20814
+P|Stanford|Moore
+D|Biochemist|Protein analysis
+T|+1-212-327|
+A|Rockefeller University|New York|10065
+F|Stanford Jr|1913
+A|New York|New York|10001
+P|William|Howard Stein
+D|Biochemist|Protein structure
+T|+1-212-327|
+A|Rockefeller University|New York|10065
+F|David|1911
+A|New York|New York|10003
+P|Richard|Martin Willstätter
+D|Chemist|Chlorophyll structure
+T|+49-89-2180|
+A|University of Munich|Munich|80802
+F|Ludwig|1895
+A|Munich|Germany|80331
+P|Appearance of text Continuation
+D|Test record type
+T|0000-000000|0000-000000
+A|Test Address|Test City|00000
+F|Test Child|2000
+A|Child Address|Child City|00000
+P|Sample|Person1000
+D|Test|This is the final person
+T|000-000|000-000
+A|Address|City|12345
