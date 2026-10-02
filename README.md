@@ -11,8 +11,11 @@ dotnet run --project /home/runner/work/people-sync/people-sync/src/PeopleSync/Pe
   --input /absolute/path/to/people.txt \
   --api http://localhost:5000/people/batch \
   --checkpoint /absolute/path/to/checkpoint.log \
-  --errors /absolute/path/to/errors.jsonl
+  --errors /absolute/path/to/errors.jsonl \
+  --output /absolute/path/to/people-output.xml
 ```
+
+`--output` (default `people-output.xml` in the working directory) is a copy of the people records System B accepted. A UTC timestamp is inserted before the extension, e.g. `out/people.xml` becomes `out/people_20261002T101530Z.xml`; missing directories are created and the final path is printed at start. The file is one well-formed UTF-8 (no BOM) `<people>` document containing the `<person>` elements of all accepted batches, streamed batch by batch (flushed each time, closing tag kept in place so a crash still leaves valid XML). Batches skipped on resume are not rewritten; each run produces its own file.
 
 For local verification, start the fake System B with:
 

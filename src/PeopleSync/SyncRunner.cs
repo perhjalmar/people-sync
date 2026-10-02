@@ -8,9 +8,11 @@ public sealed class SyncRunner
     private readonly PersonFileParser _parser;
     private readonly PeopleApiClient _peopleApiClient;
     private readonly XmlBatchWriter _xmlBatchWriter;
+    private readonly SentPayloadWriter? _sentPayloadWriter;
 
-    public SyncRunner(PersonFileParser parser, XmlBatchWriter xmlBatchWriter, PeopleApiClient peopleApiClient, CheckpointStore checkpointStore)
+    public SyncRunner(PersonFileParser parser, XmlBatchWriter xmlBatchWriter, PeopleApiClient peopleApiClient, CheckpointStore checkpointStore, SentPayloadWriter? sentPayloadWriter = null)
     {
+        _sentPayloadWriter = sentPayloadWriter;
         _parser = parser;
         _xmlBatchWriter = xmlBatchWriter;
         _peopleApiClient = peopleApiClient;
@@ -44,9 +46,15 @@ public sealed class SyncRunner
 
             await using var stream = new MemoryStream();
             await _xmlBatchWriter.WriteBatchAsync(batch, stream, cancellationToken).ConfigureAwait(false);
+            var payload = stream.ToArray();
             var idempotencyKey = PeopleApiClient.CreateDeterministicIdempotencyKey(fingerprint, batchIndex);
-            using var response = await _peopleApiClient.SendBatchAsync(stream.ToArray(), idempotencyKey, cancellationToken).ConfigureAwait(false);
+            using var response = await _peopleApiClient.SendBatchAsync(payload, idempotencyKey, cancellationToken).ConfigureAwait(false);
             response.EnsureSuccessStatusCode();
+            if (_sentPayloadWriter is not null)
+            {
+                await _sentPayloadWriter.AppendBatchAsync(payload, cancellationToken).ConfigureAwait(false);
+            }
+
             await _checkpointStore.AppendConfirmedBatchAsync(fingerprint, batchIndex, idempotencyKey, DateTimeOffset.UtcNow, cancellationToken).ConfigureAwait(false);
             confirmedBatchIndexes.Add(batchIndex);
             sentBatches++;

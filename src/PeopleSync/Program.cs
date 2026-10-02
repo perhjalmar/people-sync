@@ -33,12 +33,18 @@ public static class Program
             Description = "Bad-record JSONL log path",
             DefaultValueFactory = _ => new FileInfo("errors.jsonl")
         };
+        var outputOption = new Option<FileInfo>("--output")
+        {
+            Description = "Path for the file with the people records sent to System B; a UTC timestamp is inserted before the extension",
+            DefaultValueFactory = _ => new FileInfo("people-output.xml")
+        };
 
         var command = new RootCommand("Synchronize people from a legacy export file into System B.");
         command.Add(inputOption);
         command.Add(apiOption);
         command.Add(checkpointOption);
         command.Add(errorsOption);
+        command.Add(outputOption);
 
         command.SetAction(async parseResult =>
         {
@@ -46,18 +52,23 @@ public static class Program
             var apiText = parseResult.GetRequiredValue(apiOption);
             var checkpoint = parseResult.GetValue(checkpointOption) ?? new FileInfo("checkpoint.log");
             var errors = parseResult.GetValue(errorsOption) ?? new FileInfo("errors.jsonl");
+            var output = parseResult.GetValue(outputOption) ?? new FileInfo("people-output.xml");
             if (!Uri.TryCreate(apiText, UriKind.Absolute, out var api))
             {
                 Console.Error.WriteLine($"The --api value '{apiText}' is not a valid absolute URI.");
                 return 1;
             }
 
+            var outputPath = SentPayloadWriter.BuildTimestampedPath(output.FullName, DateTimeOffset.UtcNow);
+            Console.WriteLine($"Output file: {outputPath}");
+
             var logger = new BadRecordLogger(errors.FullName);
             var parser = new PersonFileParser(logger);
             var writer = new XmlBatchWriter();
             var checkpointStore = new CheckpointStore(checkpoint.FullName);
             await using var apiClient = new PeopleApiClient(api);
-            var runner = new SyncRunner(parser, writer, apiClient, checkpointStore);
+            await using var sentPayloadWriter = new SentPayloadWriter(outputPath);
+            var runner = new SyncRunner(parser, writer, apiClient, checkpointStore, sentPayloadWriter);
             var summary = await runner.RunAsync(input.FullName).ConfigureAwait(false);
             Console.WriteLine($"Fingerprint: {summary.Fingerprint}");
             Console.WriteLine($"Parsed people: {summary.ParsedPeople}");

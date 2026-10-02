@@ -29,8 +29,11 @@ dotnet run --project src/PeopleSync -- \
   --input examples/sample-input-1000.txt \
   --api http://localhost:5000 \
   --checkpoint checkpoint.log \
-  --errors errors.log
+  --errors errors.log \
+  --output people-output.xml
 ```
+
+The records accepted by System B are also written to a timestamped file, e.g. `people-output_20261002T101530Z.xml` (UTC; `--output out/people.xml` gives `out/people_<timestamp>.xml`). The path is printed at the start of the run.
 
 **Expected output:**
 ```
@@ -55,6 +58,8 @@ Simply rerun the exact same command. The tool will:
 1. Read the checkpoint log
 2. Skip any batches already confirmed as sent
 3. Resume from where it left off
+
+Note: batches already in the checkpoint are not re-sent and not written again, so the output file of a resumed run only contains the newly sent batches. Each run creates a new timestamped file.
 
 **No manual cleanup needed** — System B's `Idempotency-Key` header deduplication ensures no duplicates even if a batch was in-flight when the crash happened.
 
