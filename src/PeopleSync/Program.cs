@@ -38,6 +38,12 @@ public static class Program
             Description = "Path for the file with the people records sent to System B; a UTC timestamp is inserted before the extension",
             DefaultValueFactory = _ => new FileInfo("people-output.xml")
         };
+        var encodingOption = new Option<string>("--encoding")
+        {
+            Description = "Input file encoding: utf-8, windows-1252 or auto (detect)",
+            DefaultValueFactory = _ => "auto"
+        };
+        encodingOption.AcceptOnlyFromAmong("utf-8", "windows-1252", "auto");
 
         var command = new RootCommand("Synchronize people from a legacy export file into System B.");
         command.Add(inputOption);
@@ -45,6 +51,7 @@ public static class Program
         command.Add(checkpointOption);
         command.Add(errorsOption);
         command.Add(outputOption);
+        command.Add(encodingOption);
 
         command.SetAction(async parseResult =>
         {
@@ -53,6 +60,7 @@ public static class Program
             var checkpoint = parseResult.GetValue(checkpointOption) ?? new FileInfo("checkpoint.log");
             var errors = parseResult.GetValue(errorsOption) ?? new FileInfo("errors.jsonl");
             var output = parseResult.GetValue(outputOption) ?? new FileInfo("people-output.xml");
+            var encodingName = parseResult.GetValue(encodingOption) ?? "auto";
             if (!Uri.TryCreate(apiText, UriKind.Absolute, out var api))
             {
                 Console.Error.WriteLine($"The --api value '{apiText}' is not a valid absolute URI.");
@@ -63,7 +71,7 @@ public static class Program
             Console.WriteLine($"Output file: {outputPath}");
 
             var logger = new BadRecordLogger(errors.FullName);
-            var parser = new PersonFileParser(logger);
+            var parser = new PersonFileParser(logger, encodingName);
             var writer = new XmlBatchWriter();
             var checkpointStore = new CheckpointStore(checkpoint.FullName);
             await using var apiClient = new PeopleApiClient(api);

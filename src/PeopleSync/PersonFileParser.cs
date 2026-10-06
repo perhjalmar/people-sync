@@ -7,11 +7,14 @@ namespace PeopleSync;
 public sealed class PersonFileParser
 {
     private static readonly ConcurrentDictionary<string, byte> EncodingProviderInitialized = new();
+    private const int EncodingSampleSize = 64 * 1024;
     private readonly BadRecordLogger _badRecordLogger;
+    private readonly string? _encodingOption;
 
-    public PersonFileParser(BadRecordLogger badRecordLogger)
+    public PersonFileParser(BadRecordLogger badRecordLogger, string? encodingOption = "auto")
     {
         _badRecordLogger = badRecordLogger;
+        _encodingOption = encodingOption;
     }
 
     public async IAsyncEnumerable<Person> ParseAsync(string path, [EnumeratorCancellation] CancellationToken cancellationToken = default)
@@ -206,19 +209,85 @@ public sealed class PersonFileParser
         }
     }
 
-    private static StreamReader CreateReader(FileStream stream)
+    private StreamReader CreateReader(FileStream stream)
     {
         EnsureEncodingProvider();
 
-        Span<byte> preamble = stackalloc byte[3];
-        var bytesRead = stream.Read(preamble);
-        var hasUtf8Bom = bytesRead >= 3 && preamble[0] == 0xEF && preamble[1] == 0xBB && preamble[2] == 0xBF;
-        var encoding = hasUtf8Bom
-            ? new UTF8Encoding(encoderShouldEmitUTF8Identifier: false)
-            : Encoding.GetEncoding(1252);
+        Encoding encoding;
+        string reason;
+        if (TryGetExplicitEncoding(_encodingOption, out var explicitEncoding))
+        {
+            encoding = explicitEncoding;
+            reason = "specified with --encoding";
+        }
+        else
+        {
+            encoding = DetectEncoding(stream, out reason);
+        }
 
-        stream.Position = hasUtf8Bom ? 3 : 0;
-        return new StreamReader(stream, encoding, detectEncodingFromByteOrderMarks: false, leaveOpen: false);
+        Console.WriteLine($"Input encoding: {encoding.WebName} ({reason})");
+
+        // BOM detection stays on so a UTF-8 BOM is consumed instead of leaking into the first field.
+        return new StreamReader(stream, encoding, detectEncodingFromByteOrderMarks: true, bufferSize: 1 << 16, leaveOpen: false);
+    }
+
+    internal static bool TryGetExplicitEncoding(string? option, out Encoding encoding)
+    {
+        EnsureEncodingProvider();
+        switch (option?.Trim().ToLowerInvariant())
+        {
+            case "utf-8":
+            case "utf8":
+                encoding = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+                return true;
+            case "windows-1252":
+            case "cp1252":
+            case "1252":
+                encoding = Encoding.GetEncoding(1252);
+                return true;
+            case null:
+            case "":
+            case "auto":
+                encoding = Encoding.UTF8;
+                return false;
+            default:
+                throw new ArgumentException($"Unsupported encoding '{option}'. Use utf-8, windows-1252 or auto.", nameof(option));
+        }
+    }
+
+    internal static Encoding DetectEncoding(Stream stream, out string reason)
+    {
+        EnsureEncodingProvider();
+
+        var sample = new byte[EncodingSampleSize];
+        var read = 0;
+        int n;
+        while (read < sample.Length && (n = stream.Read(sample, read, sample.Length - read)) > 0)
+        {
+            read += n;
+        }
+
+        stream.Position = 0;
+
+        if (read >= 3 && sample[0] == 0xEF && sample[1] == 0xBB && sample[2] == 0xBF)
+        {
+            reason = "UTF-8 BOM";
+            return new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+        }
+
+        var strictUtf8 = new UTF8Encoding(encoderShouldEmitUTF8Identifier: false, throwOnInvalidBytes: true);
+        try
+        {
+            // flush: false tolerates a multibyte character cut off at the end of the sample.
+            strictUtf8.GetDecoder().GetCharCount(sample, 0, read, flush: false);
+            reason = "valid UTF-8";
+            return new UTF8Encoding(encoderShouldEmitUTF8Identifier: false);
+        }
+        catch (DecoderFallbackException)
+        {
+            reason = "not valid UTF-8, falling back to Windows-1252";
+            return Encoding.GetEncoding(1252);
+        }
     }
 
     private static void EnsureEncodingProvider()
