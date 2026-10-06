@@ -12,4 +12,8 @@
     <PackageReference Include="System.Threading.RateLimiting" Version="8.0.0" />
   </ItemGroup>
 
+  <ItemGroup>
+    <InternalsVisibleTo Include="PeopleSync.Tests" />
+  </ItemGroup>
+
 </Project>
